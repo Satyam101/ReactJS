@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+
+            background-color: lightgray;
+        }
+
+        #root {
+
+            max-width: 800px;
+            background-color: gray;
+            min-height: 500px;
+            padding: 20px 20px 20px 20px;
+            margin-top: 90px;
+            margin-left: 450px;
+            box-sizing: border-box;
+            text-align: center;
+
+        }
+
+        #button1 {
+            font-size: larger;
+            background-color: royalblue;
+            color: whitesmoke;
+            border: yellow;
+            width: 120px;
+            padding: 7.5px;
+            height: 45px;
+        }
+
+        .text-field {
+            font-size: larger;
+            margin-left: 40px;
+            min-width: 400px;
+            min-height: 30px;
+            padding: 5px;
+        }
+
+        ul {
+            margin: 1px;
+            padding: 0;
+        }
+
+        /* Style the list items */
+        ul li {
+            cursor: pointer;
+            position: relative;
+            padding: 5px;
+            margin-top: 5px;
+            list-style-type: none;
+            background: pink;
+            font-size: 28px;
+            transition: 0.2s;
+            width: 50px;
+            height: 45px;
+
+
+        }
+
+        /* Set all odd list items to a different color (zebra-stripes) */
+        ul li:nth-child(odd) {
+            background: gold;
+        }
+
+
+
+        /* Darker background-color on hover */
+        ul li:hover {
+            background: yellow;
+        }
+
+        i:hover {
+            background-color: lightseagreen;
+        }
+
+        #button1:hover {
+            background-color: green;
+        }
+
+
+
+        .awesome {
+            padding: 16px;
+            background: gold;
+            color: white;
+            min-width: 50px;
+            min-height: 33px;
+            margin-bottom: 5px;
+            margin-top: 11px;
+            text-align: center;
+            font-size: 33px;
+            align-items: center;
+            float: right;
+        }
+
+        .container {
+            display: flex;
+            width: 450px;
+        }
+
+        .text {
+            width: 550px;
+            margin-left: 70px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        #header {
+            color: gold;
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <div id="root">
+
+
+    </div>
+
+    <script type="text/babel">
+        const rootElement = document.getElementById("root");
+
+        const TodoApp = () => {
+
+            const [todo, setTodo] = React.useState([]);
+            const [text, setText] = React.useState("");
+
+
+
+            const Addtodo = () => {
+
+                setTodo(todo.concat(text))
+                setText("")
+
+                console.log(todo)
+            }
+
+            const removeTodo = (e) => {
+                const { id } = e.target.parentElement;
+                todo.splice(id, 1);
+                setTodo([...todo]);
+
+            }
+            // const EditTodo = (event,index) => {
+            //     setTodo(
+            //         todo.map((val,idx) => idx===index ?event.target.value :val)
+            //     )
+            // <button onChange={(event)=>EditTodo(event,index)}>Edit task</button>
+
+
+            // }
+            const changHandle = (event) => {
+
+                setText(event.target.value);
+            }
+
+            return (
+                <div>
+                    <h1 id="header">Hey what is your Today's Plan ?</h1>
+
+                    <input type="text" placeholder="Add Your Todo Here" className="text-field" value={text} onChange={changHandle} />
+                    <button id="button1" onClick={Addtodo}>Add Task</button>
+
+
+                    {
+                        todo.map((text, index) => {
+                            return (
+                                <div className="container">
+                                    <ul>
+                                        <li className="text">{text}</li>
+                                    </ul>
+                                    <div key={index} id={index}>
+
+                                        <i class="fa fa-window-close edit awesome" aria-hidden="true" onClick={removeTodo}></i>
+
+
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
+
+
+                </div>
+
+
+            )
+
+        }
+
+        ReactDOM.render(<TodoApp />, rootElement)
+    </script>
+</body>
+
+</html>
